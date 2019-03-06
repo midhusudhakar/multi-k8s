@@ -2,7 +2,7 @@ sudo: required
 services: 
   - docker
 env:
-  global: 
+  global:
     - SHA=$(git rev-parse HEAD)
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
@@ -15,15 +15,16 @@ before_install:
   - gcloud config set compute/zone us-central1-a	
   - gcloud container clusters get-credentials multi-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t midhunsudhakar/react-test -f ./client/Dockerfile.dev
+  - docker build -t midhunsudhakar/react-test -f ./client/Dockerfile.dev ./client
 
 script: 
   - docker run midhunsudhakar/react-test npm test -- --coverage
 
-deploy: script
-script: bash ./deploy.sh 
-on: 
-  branch: master
+deploy: 
+  provider: script
+  script: bash ./deploy.sh 
+  on: 
+    branch: master
 
 
    
