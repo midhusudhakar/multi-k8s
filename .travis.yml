@@ -14,6 +14,7 @@ before_install:
   - gcloud config set project starry-strand-233610
   - gcloud config set compute/zone us-central1-a	
   - gcloud container clusters get-credentials multi-cluster
+  - gcloud container clusters get-credentials --zone us-central1-a multi-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t midhunsudhakar/react-test -f ./client/Dockerfile.dev ./client
 
